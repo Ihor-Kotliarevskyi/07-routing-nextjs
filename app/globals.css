@@ -7,3 +7,19 @@ body {
   margin: 0;
   background-color: #f8f9fa;
 }
+
+h1.not-found {
+  font-size: 36px;
+  font-weight: 700;
+  color: #9e0505;
+  margin-bottom: 60px;
+  text-align: center;
+}
+
+p.not-found {
+  font-size: 18px;
+  color: #444444;
+  line-height: 28px;
+  margin-bottom: 16px;
+  text-align: center;
+}
