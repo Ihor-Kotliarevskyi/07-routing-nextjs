@@ -1,27 +1,33 @@
-import {
-  dehydrate,
-  HydrationBoundary,
-  QueryClient,
-} from "@tanstack/react-query";
-import NotesClient from "./Notes.client";
-import { fetchNotes } from "@/lib/api";
+// import {
+//   dehydrate,
+//   HydrationBoundary,
+//   QueryClient,
+// } from "@tanstack/react-query";
+// import NotesClient from "./Notes.client";
+// import { fetchNotes } from "@/lib/api";
 
-async function Notes() {
+// async function Notes() {
   
-  const searchText = "";
-  const currentPage = 1;
-  const queryClient = new QueryClient();
+//   const searchText = "";
+//   const currentPage = 1;
+//   const queryClient = new QueryClient();
 
-  await queryClient.prefetchQuery({
-    queryKey: ["notes", searchText, currentPage],
-    queryFn: () => fetchNotes(searchText, currentPage),
-  });
+//   await queryClient.prefetchQuery({
+//     queryKey: ["notes", searchText, currentPage],
+//     queryFn: () => fetchNotes(searchText, currentPage),
+//   });
 
-  return (
-    <HydrationBoundary state={dehydrate(queryClient)}>
-      <NotesClient />
-    </HydrationBoundary>
-  );
-}
+//   return (
+//     <HydrationBoundary state={dehydrate(queryClient)}>
+//       <NotesClient />
+//     </HydrationBoundary>
+//   );
+// }
 
-export default Notes;
+// export default Notes;
+
+// import { redirect } from "next/navigation";
+
+// export default function NotesPage() {
+//   redirect("/notes/filter/all");
+// }

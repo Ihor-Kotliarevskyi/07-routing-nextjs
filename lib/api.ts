@@ -10,10 +10,15 @@ const MY_KEY = process.env.NEXT_PUBLIC_NOTEHUB_TOKEN;
 
 axios.defaults.baseURL = "https://notehub-public.goit.study/api";
 
-export const fetchNotes = async (searchText: string, page: number): Promise<NotesHttpResponse> => {
+export const fetchNotes = async (
+  searchText: string,
+  page: number,
+  tag?: string
+): Promise<NotesHttpResponse> => {
   const options = {
     params: {
       ...(searchText !== "" && { search: searchText }),
+      tag,
       page,
       perPage: 12,
     },
@@ -45,7 +50,7 @@ export const deleteNote = async (id: Note["id"]): Promise<Note> => {
     },
   };
   const response = await axios.delete<Note>(`/notes/${id}`, options);
-  return response.data
+  return response.data;
 };
 
 export const fetchNoteById = async (id: Note["id"]): Promise<Note> => {
@@ -56,6 +61,5 @@ export const fetchNoteById = async (id: Note["id"]): Promise<Note> => {
     },
   };
   const response = await axios.get<Note>(`/notes/${id}`, options);
-  return response.data
+  return response.data;
 };
-

@@ -17,7 +17,7 @@ interface NoteFormValues {
   tag: string;
 }
 
-const TAGS = ["Todo", "Work", "Personal", "Meeting", "Shopping"] as const;
+export const TAGS = ["Todo", "Work", "Personal", "Meeting", "Shopping"] as const;
 
 const initialValues: NoteFormValues = {
   title: "",
