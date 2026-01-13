@@ -11,6 +11,7 @@ import Pagination from "@/components/Pagination/Pagination";
 import Modal from "@/components/Modal/Modal";
 import NoteForm from "@/components/NoteForm/NoteForm";
 import { useDebouncedCallback } from "use-debounce";
+import { useParams } from "next/navigation";
 
 function NotesClient() {
   const [currentPage, setCurrentPage] = useState<number>(1);
@@ -25,11 +26,15 @@ function NotesClient() {
     500
   );
 
-  const {
-    data: { notes = [], totalPages = 0 } = {}
-  } = useQuery<NotesHttpResponse, Error>({
-    queryKey: ["notes", currentPage, searchText],
-    queryFn: () => fetchNotes(searchText, currentPage),
+  const { slug } = useParams();
+  const tag = slug?.[0] === "all" ? undefined : slug?.[0];
+
+  const { data: { notes = [], totalPages = 0 } = {} } = useQuery<
+    NotesHttpResponse,
+    Error
+  >({
+    queryKey: ["notes", currentPage, searchText, tag],
+    queryFn: () => fetchNotes(searchText, currentPage, tag),
     placeholderData: keepPreviousData,
   });
   return (
