@@ -1,15 +1,17 @@
+import css from "./LayoutNotes.module.css"
+
 type Props = {
   readonly children: React.ReactNode;
   readonly sidebar: React.ReactNode;
 };
 
-function NotesLayout({ children, sidebar }: Props) {
+function LayoutNotes({ children, sidebar }: Props) {
   return (
     <section>
-      <aside>{sidebar}</aside>
-      <div>{children}</div>
+      <aside className={css.sidebar}>{sidebar}</aside>
+      <div className={css.notesWrapper}>{children}</div>
     </section>
   );
 }
 
-export default NotesLayout;
+export default LayoutNotes;
