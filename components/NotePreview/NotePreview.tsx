@@ -9,7 +9,7 @@ interface NotePreviewProps {
   children: ReactNode;
 }
 
-function NotePreviewModal({ children }: NotePreviewProps) {
+function NotePreview({ children }: NotePreviewProps) {
   const router = useRouter();
 
   const close = () => router.back();
@@ -50,4 +50,4 @@ function NotePreviewModal({ children }: NotePreviewProps) {
   );
 }
 
-export default NotePreviewModal;
+export default NotePreview;

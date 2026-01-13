@@ -5,13 +5,13 @@ import {
 } from "@tanstack/react-query";
 import { fetchNoteById } from "@/lib/api";
 import NoteDetailsClient from "@/app/notes/[id]/NoteDetails.client";
-import NotePreviewModal from "@/components/NotePreview/NotePreview";
+import NotePreview from "@/components/NotePreview/NotePreview";
 
 type Props = {
   params: Promise<{ id: string }>;
 };
 
-const NotePreview = async ({ params }: Props) => {
+const NotePreviewModal = async ({ params }: Props) => {
   const { id } = await params;
   const queryClient = new QueryClient();
 
@@ -21,12 +21,12 @@ const NotePreview = async ({ params }: Props) => {
   });
 
   return (
-    <NotePreviewModal >
+    <NotePreview >
       <HydrationBoundary state={dehydrate(queryClient)}>
         <NoteDetailsClient />
       </HydrationBoundary>
-    </NotePreviewModal>
+    </NotePreview>
   );
 };
 
-export default NotePreview;
+export default NotePreviewModal;
