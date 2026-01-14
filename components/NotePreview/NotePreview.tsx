@@ -1,52 +1,43 @@
 "use client";
 
-import React, { useEffect, type ReactNode } from "react";
 import css from "./NotePreview.module.css";
-import { createPortal } from "react-dom";
-import { useRouter } from "next/navigation";
+import { useParams, useRouter } from "next/navigation";
+import { keepPreviousData, useQuery } from "@tanstack/react-query";
+import { fetchNoteById } from "@/lib/api";
+import { Note } from "@/types/note";
 
-interface NotePreviewProps {
-  children: ReactNode;
-}
-
-function NotePreview({ children }: NotePreviewProps) {
+function NotePreview() {
   const router = useRouter();
 
   const close = () => router.back();
 
-  const handleBackdropClick = (event: React.MouseEvent<HTMLDivElement>) => {
-    if (event.target === event.currentTarget) {
-      close();
-    }
-  };
+  const { id } = useParams<{ id: string }>();
 
-  useEffect(() => {
-    const handleKeyDown = (e: KeyboardEvent) => {
-      if (e.key === "Escape") {
-        close();
-      }
-    };
-    document.addEventListener("keydown", handleKeyDown);
-    document.body.style.overflow = "hidden";
-    return () => {
-      document.removeEventListener("keydown", handleKeyDown);
-      document.body.style.overflow = "";
-    };
-  }, [close]);
+  const { data, isLoading, error } = useQuery<Note, Error>({
+    queryKey: ["note", id],
+    queryFn: () => fetchNoteById(id),
+    placeholderData: keepPreviousData,
+    refetchOnMount: false,
+  });
 
-  return createPortal(
-    <div
-      className={css.backdrop}
-      onClick={handleBackdropClick}
-      role="dialog"
-      aria-modal="true"
-    >
-      <div className={css.modal} onClick={(e) => e.stopPropagation()}>
-        {children}
-        <button onClick={close}>Back</button>
+  if (isLoading) return <p>Loading, please wait...</p>;
+
+  if (error || !data) return <p>Something went wrong.</p>;
+
+  return (
+    <div className={css.container}>
+      <div className={css.item}>
+        <div className={css.header}>
+          <h2>{data?.title}</h2>
+          <span className={css.tag}>{data?.tag}</span>
+        </div>
+        <p className={css.content}>{data?.content}</p>
+        <p className={css.date}>{data?.createdAt}</p>
       </div>
-    </div>,
-    document.body
+      <button onClick={close} type="button" className={css.backBtn}>
+        Back
+      </button>
+    </div>
   );
 }
 
