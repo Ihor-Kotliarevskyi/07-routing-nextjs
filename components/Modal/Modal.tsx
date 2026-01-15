@@ -6,7 +6,7 @@ import { createPortal } from "react-dom";
 import { useRouter } from "next/navigation";
 
 interface ModalProps {
-  onClose: () => void;
+  onClose?: () => void;
   children: ReactNode | React.ReactElement<{ onClose?: () => void }>;
 }
 
