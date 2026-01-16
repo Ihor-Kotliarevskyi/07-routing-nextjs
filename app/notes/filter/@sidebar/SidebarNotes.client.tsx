@@ -1,5 +1,6 @@
 "use client"
 
+import Link from "next/link";
 import css from "./SidebarNotes.module.css"
 import { TAGS } from "@/components/NoteForm/NoteForm"
 
@@ -7,18 +8,18 @@ function SidebarNotes() {
   return (
     <ul className={css.menuList}>
       <li className={css.menuItem}>
-        <a href={`/notes/filter/all`} className={css.menuLink}>
+        <Link href={`/notes/filter/all`} className={css.menuLink}>
           All notes
-        </a>
+        </Link>
       </li>
       {TAGS.map((tag) => (
         <li key={`id_${tag}`} className={css.menuItem}>
-        <a
+        <Link
           href={`/notes/filter/${tag}`}
           className={css.menuLink}
         >
           {tag}
-        </a>
+        </Link>
       </li>
     ))}
     </ul>
