@@ -61,11 +61,7 @@ function NotesClient() {
         {notes.length > 0 && <NoteList notes={notes || []} />}
       </div>
       {isOpenModal && (
-        <Modal
-          onClose={() => {
-            setIsOpenModal(false);
-          }}
-        >
+        <Modal>
           <NoteForm
             onClose={() => {
               setIsOpenModal(false);
@@ -73,7 +69,7 @@ function NotesClient() {
           />
         </Modal>
       )}
-      <Toaster position="bottom-center" reverseOrder={true} />
+      <Toaster position="top-center" reverseOrder={true} />
     </>
   );
 }
