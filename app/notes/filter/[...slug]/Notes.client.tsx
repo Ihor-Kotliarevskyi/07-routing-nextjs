@@ -11,9 +11,11 @@ import Pagination from "@/components/Pagination/Pagination";
 import Modal from "@/components/Modal/Modal";
 import NoteForm from "@/components/NoteForm/NoteForm";
 import { useDebouncedCallback } from "use-debounce";
-import { useParams } from "next/navigation";
+interface NotesClientProps {
+  readonly tag: string | undefined,
+}
 
-function NotesClient() {
+function NotesClient({ tag }: NotesClientProps) {
   const [currentPage, setCurrentPage] = useState<number>(1);
   const [isOpenModal, setIsOpenModal] = useState<boolean>(false);
   const [searchText, setSearchText] = useState<string>("");
@@ -26,10 +28,7 @@ function NotesClient() {
     500
   );
 
-  const { slug } = useParams();
-  const tag = slug?.[0] === "all" ? undefined : slug?.[0];
-
-  const { data: { notes = [], totalPages = 0 } = {} } = useQuery<
+    const { data: { notes = [], totalPages = 0 } = {} } = useQuery<
     NotesHttpResponse,
     Error
   >({
@@ -61,7 +60,9 @@ function NotesClient() {
         {notes.length > 0 && <NoteList notes={notes || []} />}
       </div>
       {isOpenModal && (
-        <Modal>
+        <Modal onClose={() => {
+              setIsOpenModal(false);
+            }}>
           <NoteForm
             onClose={() => {
               setIsOpenModal(false);

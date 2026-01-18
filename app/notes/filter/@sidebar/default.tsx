@@ -1,7 +1,24 @@
-import SidebarNotes from "./SidebarNotes.client";
+import Link from "next/link";
+import css from "./SidebarNotes.module.css";
+import { TAGS } from "@/constants/tags";
 
-function Sidebar () {
-    return <div ><SidebarNotes /></div>
+function Sidebar() {
+  return (
+    <ul className={css.menuList}>
+      <li className={css.menuItem}>
+        <Link href={`/notes/filter/all`} className={css.menuLink}>
+          All notes
+        </Link>
+      </li>
+      {TAGS.map((tag) => (
+        <li key={`id_${tag}`} className={css.menuItem}>
+          <Link href={`/notes/filter/${tag}`} className={css.menuLink}>
+            {tag}
+          </Link>
+        </li>
+      ))}
+    </ul>
+  );
 }
 
 export default Sidebar;

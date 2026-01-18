@@ -6,6 +6,7 @@ import type { CreateNote } from "../../types/note";
 import { useMutation, useQueryClient } from "@tanstack/react-query";
 import toast from "react-hot-toast";
 import { createNote } from "@/lib/api";
+import { TAGS } from "@/constants/tags";
 
 interface NoteFormProps {
   readonly onClose: () => void;
@@ -16,8 +17,6 @@ interface NoteFormValues {
   content: string;
   tag: string;
 }
-
-export const TAGS = ["Todo", "Work", "Personal", "Meeting", "Shopping"] as const;
 
 const initialValues: NoteFormValues = {
   title: "",
