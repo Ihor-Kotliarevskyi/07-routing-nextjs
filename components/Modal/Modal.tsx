@@ -3,7 +3,7 @@
 import React, { useEffect, type ReactNode } from "react";
 import css from "./Modal.module.css";
 interface ModalProps {
-  readonly onClose: () => void;
+  readonly onClose?: () => void | undefined;
   readonly children: ReactNode | React.ReactElement<{ onClose?: () => void }>;
 }
 
@@ -14,14 +14,14 @@ interface ChildProps {
 function Modal({ onClose, children }: ModalProps) {
   const handleBackdropClick = (event: React.MouseEvent<HTMLDivElement>) => {
     if (event.target === event.currentTarget) {
-      onClose();
+      onClose?.();
     }
   };
 
   useEffect(() => {
     const handleKeyDown = (e: KeyboardEvent) => {
       if (e.key === "Escape") {
-        onClose();
+        onClose?.();
       }
     };
     document.addEventListener("keydown", handleKeyDown);
